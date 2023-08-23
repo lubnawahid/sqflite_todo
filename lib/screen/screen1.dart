@@ -62,60 +62,60 @@ class _Screen1State extends State<Screen1> {
       elevation: 5,
       isScrollControlled: true,
       context: context,
-        builder: (_) => Container(
-          padding: EdgeInsets.only(
-            top: 30,
-            left: 15,
-            right: 15,
-            bottom: MediaQuery.of(context).viewInsets.bottom+50,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _titleController,
-                decoration: InputDecoration(
+      builder: (_) => Container(
+        padding: EdgeInsets.only(
+          top: 30,
+          left: 15,
+          right: 15,
+          bottom: MediaQuery.of(context).viewInsets.bottom+50,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Title"
-                ),
               ),
-              SizedBox(height: 10,),
-              TextField(
-                controller: _descController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Description"
-                ),
+            ),
+            SizedBox(height: 10,),
+            TextField(
+              controller: _descController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Description"
               ),
-              SizedBox(height: 20,),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async{
-                    if(id==null){
-                      await _addData();
-                    }
-                    if(id !=null){
-                      await _updateData(id);
-                    }
-                    _titleController.text ="";
-                    _descController.text ="";
+            ),
+            SizedBox(height: 20,),
+            Center(
+              child: ElevatedButton(
+                onPressed: () async{
+                  if(id==null){
+                    await _addData();
+                  }
+                  if(id !=null){
+                    await _updateData(id);
+                  }
+                  _titleController.text ="";
+                  _descController.text ="";
 
-                    Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                   print("Data Added");
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(id == null ? "Add Data":"Update",
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(id == null ? "Add Data":"Update",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),),
-                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
+      ),
 
     );
   }
@@ -127,36 +127,36 @@ class _Screen1State extends State<Screen1> {
         title: Text("CRUD Operations"),
       ),
       body: _isloading ?
-          Center(
-            child:CircularProgressIndicator()):
-          ListView.builder(
-            itemCount: _allData.length,
-            itemBuilder: (context,index) => Card(
-              margin: EdgeInsets.all(15),
-              child:ListTile(
-                title: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Text(_allData[index]['title'],
-                  style: TextStyle(
-                      fontSize: 20,
-                  ),),
-                ),
-                subtitle: Text(_allData[index]['desc']),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(onPressed: (){
-                      showBottomSheet(_allData[index]['id']);
-                    }, icon: Icon(Icons.edit,color: Colors.black,)
-                    ),
-              IconButton(onPressed: (){
-                _deleteData(_allData[index]['id']);
-                }, icon: Icon(Icons.delete,color: Colors.black,)),
-                  ],
-                ),
-              ) ,
+      Center(
+          child:CircularProgressIndicator()):
+      ListView.builder(
+        itemCount: _allData.length,
+        itemBuilder: (context,index) => Card(
+          margin: EdgeInsets.all(15),
+          child:ListTile(
+            title: Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Text(_allData[index]['title'],
+                style: TextStyle(
+                  fontSize: 20,
+                ),),
             ),
-          ),
+            subtitle: Text(_allData[index]['desc']),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(onPressed: (){
+                  showBottomSheet(_allData[index]['id']);
+                }, icon: Icon(Icons.edit,color: Colors.black,)
+                ),
+                IconButton(onPressed: (){
+                  _deleteData(_allData[index]['id']);
+                }, icon: Icon(Icons.delete,color: Colors.black,)),
+              ],
+            ),
+          ) ,
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showBottomSheet(null),
         child: Icon(Icons.add),

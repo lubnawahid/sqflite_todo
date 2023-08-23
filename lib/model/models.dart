@@ -6,9 +6,9 @@ class TodoModel{
 
   TodoModel({required this.id,required this.title,required this.desc});
   TodoModel.fromMap(Map<String,dynamic> res):
-      id=res['id'],
-  title = res['title'],
-  desc = res['desc'];
+        id=res['id'],
+        title = res['title'],
+        desc = res['desc'];
 
 
   Map<String,Object?> toMap(){

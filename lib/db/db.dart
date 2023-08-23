@@ -13,8 +13,8 @@ class Db{
   static Future<sql.Database> db() async{
     return sql.openDatabase("database_name.db",version: 1,
         onCreate: (sql.Database database, int version) async{
-      await createTables(database);
-    });
+          await createTables(database);
+        });
   }
   static Future<int> createData(String title,String? desc) async {
     final db = await Db.db();
@@ -26,14 +26,14 @@ class Db{
   }
   static Future<List<Map<String,dynamic>>> getAllData() async{
     final db = await Db.db();
-        return db.query('data',orderBy:'id');
+    return db.query('data',orderBy:'id');
 
   }
-static Future<List<Map<String, dynamic>>> getSingleData(int id) async {
-  final db = await Db.db();
-  return db.query('data', where: "id = ?", whereArgs: [id], limit: 1);
-}
-static Future<int> updateData(int id,String title, String? desc) async{
+  static Future<List<Map<String, dynamic>>> getSingleData(int id) async {
+    final db = await Db.db();
+    return db.query('data', where: "id = ?", whereArgs: [id], limit: 1);
+  }
+  static Future<int> updateData(int id,String title, String? desc) async{
     final db = await Db.db();
     final data = {
       'title':title,
@@ -42,7 +42,7 @@ static Future<int> updateData(int id,String title, String? desc) async{
     };
     final result = await db.update('data',data,where:"id =?",whereArgs: [id]);
     return result;
-    
+
 
 
   }
